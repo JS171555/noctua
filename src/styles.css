@@ -157,6 +157,17 @@
 
 .desktop-access-notice { display: none; }
 
+/* Keep app copy from being selected accidentally; editable fields remain selectable. */
+.app-interface {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.app-interface :is(input, textarea, [contenteditable="true"], [role="textbox"]) {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 /* Touch-first devices keep the app; desktop pointers receive the access notice. */
 @media (hover: hover) and (pointer: fine) {
   .app-interface { display: none !important; }
