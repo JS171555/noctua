@@ -68,10 +68,10 @@ function Home() {
             </span>
           </div>
           <div>
-            <h1 className="text-editorial text-5xl leading-[0.95]">
+            <h1 className="text-editorial text-[clamp(2rem,10vw,3rem)] leading-[0.95]">
               Onde a noite
               <br />
-              <em className="text-primary">silencia</em> o mundo.
+              <em className="text-primary not-italic">silencia</em> o mundo.
             </h1>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Atmosferas sonoras para adormecer, respirar e encontrar foco.
