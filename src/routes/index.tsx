@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Moon, Play, Sparkles, Timer } from "lucide-react";
-import diorama from "@/assets/home-diorama.jpg";
 import dioramaVideo from "@/assets/home-diorama.webm";
 import { experiences, moods } from "@/data/sounds";
 import {
@@ -44,7 +43,6 @@ function Home() {
       <section className="relative h-[78vh] min-h-[520px] w-full overflow-hidden">
         <video
           src={dioramaVideo}
-          poster={diorama}
           autoPlay
           muted
           loop
