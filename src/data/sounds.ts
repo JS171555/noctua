@@ -19,10 +19,10 @@ import {
   AppWindow,
   CloudDrizzle,
 } from "lucide-react";
-import rain from "@/assets/scene-rain.webp";
-import ocean from "@/assets/scene-ocean.webp";
-import fire from "@/assets/scene-fireplace.webp";
-import diorama from "@/assets/home-diorama.webp";
+import rain from "@/assets/cards/floresta-sob-a-chuva.webp";
+import ocean from "@/assets/cards/mar-ao-luar.webp";
+import fire from "@/assets/cards/cabana-aquecida.webp";
+import diorama from "@/assets/cards/casa-do-lago.webp";
 
 export type Category = "Natureza" | "Chuva" | "Aconchego" | "Cidade" | "Ruídos";
 
