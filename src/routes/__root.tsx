@@ -8,7 +8,8 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { Moon, Smartphone } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AppProvider } from "../state/app-store";
@@ -130,17 +131,64 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [desktopRestricted, setDesktopRestricted] = useState(false);
+
+  useEffect(() => {
+    const desktopPointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)",
+    );
+    const updateRestriction = () =>
+      setDesktopRestricted(desktopPointer.matches);
+
+    updateRestriction();
+    desktopPointer.addEventListener("change", updateRestriction);
+    return () =>
+      desktopPointer.removeEventListener("change", updateRestriction);
+  }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <AuthProvider>
-        <AppProvider>
-          <Outlet />
-          <BottomNav />
-          <Toaster position="top-center" />
-        </AppProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <>
+      {!desktopRestricted && (
+        <div className="app-interface">
+          <QueryClientProvider client={queryClient}>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <AuthProvider>
+              <AppProvider>
+                <Outlet />
+                <BottomNav />
+                <Toaster position="top-center" />
+              </AppProvider>
+            </AuthProvider>
+          </QueryClientProvider>
+        </div>
+      )}
+      <DesktopAccessNotice />
+    </>
+  );
+}
+
+function DesktopAccessNotice() {
+  return (
+    <main className="desktop-access-notice min-h-screen place-items-center px-8 py-16 text-center">
+      <div className="mx-auto max-w-xl">
+        <span className="mx-auto flex w-fit items-center gap-2 font-ui text-xs uppercase tracking-[0.3em] text-foreground/90">
+          <Moon className="h-4 w-4 text-primary" strokeWidth={1.75} /> NOCTUA
+        </span>
+        <div
+          className="mx-auto mt-10 grid h-14 w-14 place-items-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-glow"
+        >
+          <Smartphone className="h-6 w-6" strokeWidth={1.5} />
+        </div>
+        <p className="mt-8 font-ui text-xs uppercase tracking-[0.2em] text-primary">
+          Feito para o toque
+        </p>
+        <h1 className="text-editorial mx-auto mt-3 text-4xl leading-tight">
+          O NOCTUA é feito para o toque.
+        </h1>
+        <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+          Para continuar, abra esta página em um celular ou tablet.
+        </p>
+      </div>
+    </main>
   );
 }
