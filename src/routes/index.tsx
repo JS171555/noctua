@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Moon, Play, Sparkles, Timer } from "lucide-react";
+import { Play, Sparkles, Timer } from "lucide-react";
 import dioramaVideo from "@/assets/home-diorama.webm";
 import { experiences, moods } from "@/data/sounds";
 import {
@@ -56,7 +56,15 @@ function Home() {
         <div className="relative mx-auto flex h-full max-w-xl flex-col justify-between px-5 pb-8 pt-8">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 font-ui text-xs uppercase tracking-[0.3em] text-foreground/90">
-              <Moon className="h-4 w-4 text-primary" strokeWidth={1.75} /> Noctua
+              <img
+                src="/noctua-logo.png"
+                alt=""
+                aria-hidden="true"
+                width={24}
+                height={24}
+                className="h-6 w-6 rounded-md object-cover"
+              />
+              Noctua
             </span>
             <span
               className="nav-glass rounded-full border px-3 py-1 font-ui text-xs text-muted-foreground"

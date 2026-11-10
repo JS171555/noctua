@@ -1,41 +1,94 @@
-# Noctua
+# NOCTUA
 
-Aplicação de atmosferas sonoras para dormir, relaxar e concentrar, construída com React, TanStack Start, TypeScript e Supabase.
+<p align="center">
+  <img src="public/noctua-logo.png" alt="Logo do NOCTUA: lua dourada sobre fundo verde-floresta" width="176" />
+</p>
+
+<p align="center"><strong>Atmosferas sonoras para desacelerar.</strong><br />Durma, relaxe e concentre-se no seu próprio ritmo.</p>
+
+O **NOCTUA** é uma experiência sonora minimalista, criada para dispositivos móveis e tablets. Explore sons e combine atmosferas para criar o ambiente ideal para cada momento. Em computadores, a aplicação exibe um aviso e solicita o acesso por celular ou tablet. A experiência pode ser explorada sem conta; os recursos de autenticação, favoritos e salvamento dependem da configuração do Supabase.
+
+## Tecnologias
+
+- React 19, TypeScript e TanStack Start
+- Vite 8 e Nitro para build e execução server-side
+- Tailwind CSS 4
+- Supabase para autenticação e recursos de conta
+- Drizzle ORM/Kit para schema e migrações do banco
 
 ## Requisitos
 
-- Node.js 22.12 ou superior e npm.
-- Um projeto Supabase é opcional para explorar e mixar sons localmente, mas necessário para login, favoritos e salvar atmosferas.
+- Node.js 22.12 ou superior
+- npm
+- Projeto Supabase, opcional para explorar o catálogo e o Studio; necessário para recursos de conta
 
 ## Desenvolvimento local
 
-```sh
+```bash
+git clone https://github.com/JS171555/noctua.git
+cd noctua
 npm ci
 cp .env.example .env
 npm run dev
 ```
 
-Preencha no `.env` as variáveis do Supabase descritas abaixo. Sem essas variáveis, os recursos de conta permanecem indisponíveis, mas o catálogo e o Studio podem ser usados localmente.
+A aplicação inicia sem credenciais do Supabase para permitir a exploração local. Preencha o `.env` quando for testar login, favoritos ou salvamento de atmosferas.
 
-O build de produção é gerado com `npm run build`; os testes são executados com `npm test`.
+## Variáveis de ambiente
 
-## Publicar na Vercel
+| Variável                        | Uso                                                                                                                        |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_SUPABASE_URL`             | URL pública do Supabase, incorporada ao bundle do navegador no build.                                                      |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Chave publicável usada pelo cliente no navegador. A proteção dos dados deve ser feita com políticas RLS.                   |
+| `SUPABASE_URL`                  | URL do Supabase disponível no servidor.                                                                                    |
+| `SUPABASE_PUBLISHABLE_KEY`      | Chave publicável usada em operações server-side.                                                                           |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Opcional; somente para operações administrativas confiáveis no servidor. Ignora RLS e nunca pode ser exposta ao navegador. |
+| `DATABASE_URL`                  | Opcional; necessária apenas para comandos Drizzle e migrações, não para servir a aplicação.                                |
 
-O projeto usa TanStack Start com o plugin Nitro para gerar o servidor compatível com Vercel Functions. Importe o repositório `JS171555/noctua` em [vercel.com/new](https://vercel.com/new), mantenha a raiz do projeto na pasta do repositório e permita a detecção automática do framework e dos comandos de build. Não configure a aplicação como site estático nem substitua o comando de build `npm run build`.
+Use `.env.example` como referência e mantenha credenciais fora do Git. Variáveis com prefixo `VITE_` são públicas. Nunca coloque chaves secretas em variáveis `VITE_`.
 
-Se o projeto usar autenticação Supabase, cadastre no painel Vercel as variáveis abaixo nos ambientes que serão usados (Production, Preview e Development):
+## Instalação no celular
 
-- `VITE_SUPABASE_URL`: URL do projeto Supabase, disponibilizada ao cliente durante o build.
-- `VITE_SUPABASE_PUBLISHABLE_KEY`: chave publicável do Supabase, disponibilizada ao cliente durante o build. Essa chave é pública por definição; as políticas RLS do banco devem proteger os dados.
-- `SUPABASE_URL`: URL do Supabase disponível no servidor.
-- `SUPABASE_PUBLISHABLE_KEY`: chave publicável disponível no servidor para autenticação e funções server-side.
+O NOCTUA inclui um Web App Manifest com nome, modo de exibição, cores de marca e ícones quadrados opacos. A instalação exige que o site esteja publicado em HTTPS; a Vercel fornece HTTPS para domínios publicados.
 
-As duas variáveis com prefixo `VITE_` são incluídas no bundle do navegador e nunca devem conter segredos. `SUPABASE_SERVICE_ROLE_KEY` só deve ser definida se operações administrativas server-side forem usadas; nunca use essa chave em código enviado ao navegador ou com prefixo `VITE_`. `DATABASE_URL` só é necessária para executar comandos Drizzle/migrações e não é exigida para servir o app atualmente.
+### Android
 
-No painel Supabase, ative o provedor Google se quiser oferecer esse tipo de login e ajuste a configuração de URLs de autenticação para incluir o domínio de produção e os domínios de Preview que você pretende usar. O fluxo de login e recuperação de senha redireciona para a origem do site publicado.
+Abra o site no Chrome para Android. No menu do navegador, escolha **Instalar app** ou **Adicionar à tela inicial** e confirme. A opção pode aparecer depois que a página for visitada e pode variar conforme a versão do navegador.
 
-Depois de configurar as variáveis, faça o deploy. Para testar localmente, configure `.env` e execute `npm run build` e `npm test`. `.env` e outros arquivos de ambiente locais são ignorados pelo Git; mantenha `.env.example` sem credenciais.
+### iPhone e iPad
+
+Abra o site no Safari, toque em **Compartilhar** e escolha **Adicionar à Tela de Início**. Ative **Abrir como App da Web** e toque em **Adicionar**. No iOS, a instalação é iniciada pelo usuário no menu de compartilhamento; não há um botão de instalação automática no site.
+
+A instalação abre o NOCTUA em modo de aplicativo, mas não habilita uso offline. Reprodução de sons, autenticação e demais recursos que dependem da rede continuam precisando de conexão.
+
+## Publicação na Vercel
+
+1. Importe `JS171555/noctua` em [vercel.com/new](https://vercel.com/new).
+2. Mantenha a raiz do repositório como diretório do projeto e aceite a detecção automática do framework e do comando `npm run build`.
+3. Se for usar recursos de conta, cadastre as variáveis Supabase na Vercel nos ambientes **Production**, **Preview** e **Development**.
+4. No painel Supabase, habilite o provedor Google caso queira oferecer esse tipo de login e configure as URLs de redirecionamento para os domínios de produção e Preview utilizados.
+5. Execute o deploy e valide o site publicado em HTTPS antes de testar a instalação no dispositivo.
+
+Não configure o projeto como site estático: o TanStack Start usa Nitro para gerar o servidor compatível com Vercel Functions. Não é necessário adicionar plugins ou dependências para servir o manifest e os ícones.
+
+## Comandos úteis
+
+```bash
+npm run dev       # desenvolvimento local
+npm run build     # build de produção para Vercel/Nitro
+npm run preview   # prévia local do build
+npm test          # testes automatizados
+npm run lint      # análise estática
+```
+
+## Estrutura PWA
+
+- `public/manifest.json`: identidade, cores, modo de abertura e ícones PWA.
+- `public/noctua-logo.png`: ícone principal da aplicação em 512 × 512 px.
+- `public/icons/noctua-192.png`: ícone PWA de 192 × 192 px.
+- `public/icons/noctua-apple-touch-icon.png`: ícone de tela inicial Apple em 180 × 180 px.
+- `public/icons/noctua-favicon-32.png`: favicon em 32 × 32 px.
 
 ## Segurança
 
-Nunca exponha `SUPABASE_SERVICE_ROLE_KEY` no navegador, nunca use-a em uma variável `VITE_` e nunca versione arquivos `.env` com credenciais.
+Nunca versione arquivos `.env` com credenciais. As chaves publicáveis do Supabase não substituem políticas RLS. A `SUPABASE_SERVICE_ROLE_KEY` tem privilégios administrativos e deve permanecer exclusivamente no ambiente de servidor.

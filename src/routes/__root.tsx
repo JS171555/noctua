@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { Moon, Smartphone } from "lucide-react";
+import { Smartphone } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -106,7 +106,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "manifest", href: "/manifest.json" },
+      {
+        rel: "icon",
+        href: "/icons/noctua-favicon-32.png",
+        type: "image/png",
+        sizes: "32x32",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/icons/noctua-apple-touch-icon.png",
+        sizes: "180x180",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -172,7 +183,15 @@ function DesktopAccessNotice() {
     <main className="desktop-access-notice min-h-screen place-items-center px-8 py-16 text-center">
       <div className="mx-auto max-w-xl">
         <span className="mx-auto flex w-fit items-center gap-2 font-ui text-xs uppercase tracking-[0.3em] text-foreground/90">
-          <Moon className="h-4 w-4 text-primary" strokeWidth={1.75} /> NOCTUA
+          <img
+            src="/noctua-logo.png"
+            alt=""
+            aria-hidden="true"
+            width={24}
+            height={24}
+            className="h-6 w-6 rounded-md object-cover"
+          />
+          NOCTUA
         </span>
         <div
           className="mx-auto mt-10 grid h-14 w-14 place-items-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-glow"
