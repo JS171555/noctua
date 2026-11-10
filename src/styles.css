@@ -148,6 +148,22 @@
   &::-webkit-scrollbar { display: none; }
 }
 
+/* Scroll remains available while scrollbar tracks and thumbs stay invisible. */
+* {
+  scrollbar-color: transparent transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
 @keyframes float-up {
   0% { transform: translateY(0); opacity: 0; }
   15% { opacity: 1; }

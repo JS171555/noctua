@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Loader2, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import rain from "@/assets/scene-rain.jpg";
+import rain from "@/assets/scene-rain.webp";
 import { Fireflies, GlowButton } from "@/components/noctua";
 import { isSupabaseConfigured, supabase } from "@/integration/supabase/client";
 import { useAuth } from "@/hooks/use-auth";

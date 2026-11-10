@@ -188,7 +188,7 @@ function DesktopAccessNotice() {
       <div className="mx-auto max-w-xl">
         <span className="mx-auto flex w-fit items-center gap-2 font-ui text-xs uppercase tracking-[0.3em] text-foreground/90">
           <img
-            src="/noctua-logo.png"
+            src="/noctua-mark-96.webp"
             alt=""
             aria-hidden="true"
             width={24}

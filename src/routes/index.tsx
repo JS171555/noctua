@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Sparkles, Timer } from "lucide-react";
 import dioramaVideo from "@/assets/home-diorama.webm";
-import { experiences, moods } from "@/data/sounds";
+import { experiences, filterExperiencesByMood, moods } from "@/data/sounds";
 import {
   Chip,
   ExperienceCard,
@@ -34,8 +34,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const [mood, setMood] = useState("Dormir");
+  const [mood, setMood] = useState<string | null>(null);
   const { engine } = useAudio();
+  const filteredExperiences = filterExperiencesByMood(mood);
   const hour = new Date().getHours();
   const greet = hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite";
   return (
@@ -57,7 +58,7 @@ function Home() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 font-ui text-xs uppercase tracking-[0.3em] text-foreground/90">
               <img
-                src="/noctua-logo.png"
+                src="/noctua-mark-96.webp"
                 alt=""
                 aria-hidden="true"
                 width={24}
@@ -103,6 +104,9 @@ function Home() {
 
       <Page className="pt-2">
         <div data-reveal className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5">
+          <Chip active={mood === null} onClick={() => setMood(null)}>
+            Todas
+          </Chip>
           {moods.map((m) => (
             <Chip key={m} active={m === mood} onClick={() => setMood(m)}>
               {m}
@@ -119,11 +123,22 @@ function Home() {
         >
           Atmosferas da noite
         </SectionTitle>
-        <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 pb-2">
-          {experiences.map((e) => (
-            <ExperienceCard key={e.id} exp={e} />
-          ))}
-        </div>
+        {filteredExperiences.length > 0 ? (
+          <div className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto px-5 pb-2">
+            {filteredExperiences.map((e) => (
+              <ExperienceCard key={e.id} exp={e} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-dashed bg-card/40 px-6 py-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              Ainda não há atmosferas para {mood?.toLowerCase()}.
+            </p>
+            <GhostButton className="mt-4" onClick={() => setMood(null)}>
+              Ver todas
+            </GhostButton>
+          </div>
+        )}
 
         <SectionTitle>Crie a sua</SectionTitle>
         <Link

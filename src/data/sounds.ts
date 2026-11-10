@@ -19,10 +19,10 @@ import {
   AppWindow,
   CloudDrizzle,
 } from "lucide-react";
-import rain from "@/assets/scene-rain.jpg";
-import ocean from "@/assets/scene-ocean.jpg";
-import fire from "@/assets/scene-fireplace.jpg";
-import diorama from "@/assets/home-diorama.jpg";
+import rain from "@/assets/scene-rain.webp";
+import ocean from "@/assets/scene-ocean.webp";
+import fire from "@/assets/scene-fireplace.webp";
+import diorama from "@/assets/home-diorama.webp";
 
 export type Category = "Natureza" | "Chuva" | "Aconchego" | "Cidade" | "Ruídos";
 
@@ -111,6 +111,9 @@ export const experiences: Experience[] = [
 ];
 
 export const moods = ["Dormir", "Relaxar", "Meditar", "Estudar", "Trabalhar", "Ler", "Concentrar"];
+
+export const filterExperiencesByMood = (mood: string | null) =>
+  mood ? experiences.filter((experience) => experience.mood === mood) : experiences;
 
 export const soundById = (id: string) => sounds.find((s) => s.id === id)!;
 export const iconFor = (slug: string): LucideIcon =>
