@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+/dist/
+/.output/
+/.vercel/
+/coverage/
+
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and OS/editor metadata
+*.log
+.DS_Store
