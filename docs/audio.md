@@ -1,6 +1,6 @@
 # Áudio do NOCTUA
 
-O catálogo conserva os mesmos 20 identificadores e controles. Das 17 camadas ambientais, 15 são efeitos gerados por IA; Chuva e Trovões usam os arquivos fornecidos pelo usuário. A procedência original desses dois arquivos não foi inferida. Não se anuncia validação auditiva humana dos efeitos gerados.
+O catálogo conserva os mesmos 20 identificadores e controles. Das 17 camadas ambientais, 15 são efeitos gerados por IA. Chuva usa um trecho de 30 segundos da gravação enviada pelo usuário, e Trovões usa uma gravação real de domínio público internacional disponibilizada no Wikimedia Commons. Não se anuncia validação auditiva humana.
 
 ## Biblioteca
 
@@ -12,17 +12,19 @@ O catálogo conserva os mesmos 20 identificadores e controles. Das 17 camadas am
 | Cidade             | Cafeteria e trem                                                                                |
 | Ruídos matemáticos | Branco, rosa e marrom                                                                           |
 
-Os ambientes estão em `public/audio/v2/`. Os 15 efeitos gerados usam MP3 estéreo a 44,1 kHz e 192 kbps, com aproximadamente 30 segundos. Chuva preserva o MP3 estéreo de 44,1 kHz, 256 kbps e aproximadamente 109 segundos enviado pelo usuário. Trovões preserva o MP3 estéreo de 24 kHz, 160 kbps e aproximadamente 121 segundos. MP3 é um formato com perdas; preservar um MP3 existente sem recodificação não transforma o arquivo em áudio lossless.
+Os ambientes estão em `public/audio/v2/`, todos com aproximadamente 30 segundos. Os 15 efeitos gerados usam MP3 estéreo a 44,1 kHz e 192 kbps. Chuva e Trovões usam MP3 estéreo a 44,1 kHz com bitrate variável, próximos de 210 e 180 kbps. MP3 é um formato com perdas.
 
 ### Revisão de Chuva e Trovões
 
-Na revisão `rev=4`, os dois arquivos gerados foram substituídos pelos arquivos enviados pelo usuário, preservados byte a byte. Não foram cortados, equalizados, reamostrados nem recodificados. A tentativa de remoção de metadados com cópia direta dos frames MP3 não economizou bytes; por isso os originais foram mantidos. O preset “Floresta sob a chuva” continua iniciando Trovões em 45%; os demais volumes permanecem iguais.
+Na revisão `rev=5`, os dois arquivos longos foram reduzidos para 30 segundos. A Chuva mantém o caráter da gravação aprovada: foi escolhido o trecho mais estável entre 60 e 90 segundos, sem equalização, com apenas 1,5 dB de atenuação para evitar picos no limite digital e fades de 120 ms. Trovões passa a usar uma gravação real: `Thunder crack 2B.wav`, de Jud McCranie, publicada no Wikimedia Commons sob CC BY-SA 4.0. O trecho de 30 segundos recebeu compressão moderada, filtro de subgraves, nivelamento e codificação MP3. O preset “Floresta sob a chuva” inicia Trovões em 70%.
 
-As URLs usam `?rev=4` para invalidar o cache dos dois arquivos sem alterar os outros ambientes. O SHA-256 dos arquivos publicados foi comparado com o dos anexos originais. Reduzir mais o tamanho por recodificação MP3 acrescentaria perdas e não foi feito. O tratamento de reprodução já existente no mixer permanece aplicado apenas em tempo de execução.
+O arquivo derivado de Trovões é distribuído sob CC BY-SA 4.0, com crédito a Jud McCranie. Fonte: [Thunder crack 2B.wav](https://commons.wikimedia.org/wiki/File:Thunder_crack_2B.wav). A licença permite uso e adaptação com atribuição e compartilhamento sob a mesma licença. A Chuva continua sendo fornecida pelo usuário e não tem licença declarada neste repositório.
+
+As URLs usam `?rev=5` para invalidar o cache dos dois arquivos sem alterar os outros ambientes. A redução de download foi de 77% na Chuva e 72% em Trovões. O download menor também reduz dados em rede; a memória do áudio decodificado cai porque a duração passou de quase dois minutos para 30 segundos.
 
 ## Reprodução e loops
 
-Na preparação dos 15 efeitos gerados, o FFmpeg mede a sonoridade em uma primeira passagem e aplica `loudnorm` em uma segunda, com alvos de −23 LUFS, true peak de −4 dB e faixa dinâmica de 7 LU. Chuva e Trovões fornecidos não passaram por essa etapa. São parâmetros de produção, não certificação de áudio ou de escuta humana.
+Na preparação dos 15 efeitos gerados, o FFmpeg mede a sonoridade em uma primeira passagem e aplica `loudnorm` em uma segunda, com alvos de −23 LUFS, true peak de −4 dB e faixa dinâmica de 7 LU. Trovões foi nivelado com alvo mais alto, de −16 LUFS e true peak de −1,5 dB, para soar forte. São parâmetros de produção, não certificação de áudio ou de escuta humana.
 
 Ao decodificar um ambiente, o carregador remove o componente DC, sobrepõe até dois segundos do final ao início com crossfade de potência constante e ajusta o ganho de ambos os canais em conjunto. O resultado típico de uma fonte de 30 segundos é um loop de aproximadamente 28 segundos, sem uma pausa inserida a cada repetição. O comprimento exato é calculado a partir do PCM decodificado pelo navegador.
 

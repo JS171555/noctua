@@ -35,10 +35,20 @@ export interface Sound {
 
 export const sounds: Sound[] = [
   { id: "rain", name: "Chuva", category: "Chuva", icon: CloudRain },
-  { id: "window-rain", name: "Chuva na janela", category: "Chuva", icon: AppWindow },
+  {
+    id: "window-rain",
+    name: "Chuva na janela",
+    category: "Chuva",
+    icon: AppWindow,
+  },
   { id: "roof-rain", name: "Chuva no telhado", category: "Chuva", icon: House },
   { id: "thunder", name: "Trovões", category: "Chuva", icon: CloudLightning },
-  { id: "far-storm", name: "Tempestade distante", category: "Chuva", icon: CloudDrizzle },
+  {
+    id: "far-storm",
+    name: "Tempestade distante",
+    category: "Chuva",
+    icon: CloudDrizzle,
+  },
   { id: "wind", name: "Vento", category: "Natureza", icon: Wind },
   { id: "ocean", name: "Oceano", category: "Natureza", icon: Waves },
   { id: "forest", name: "Floresta", category: "Natureza", icon: Trees },
@@ -46,17 +56,33 @@ export const sounds: Sound[] = [
   { id: "crickets", name: "Grilos", category: "Natureza", icon: Bug },
   { id: "stream", name: "Água corrente", category: "Natureza", icon: Droplets },
   { id: "leaves", name: "Folhas balançando", category: "Natureza", icon: Leaf },
-  { id: "tree-wind", name: "Vento nas árvores", category: "Natureza", icon: Trees },
+  {
+    id: "tree-wind",
+    name: "Vento nas árvores",
+    category: "Natureza",
+    icon: Trees,
+  },
   { id: "fireplace", name: "Lareira", category: "Aconchego", icon: Flame },
   { id: "campfire", name: "Fogueira", category: "Aconchego", icon: Tent },
   { id: "cafe", name: "Cafeteria", category: "Cidade", icon: Coffee },
   { id: "train", name: "Trem", category: "Cidade", icon: TrainFront },
   { id: "white", name: "Ruído branco", category: "Ruídos", icon: Radio },
   { id: "pink", name: "Ruído rosa", category: "Ruídos", icon: AudioWaveform },
-  { id: "brown", name: "Ruído marrom", category: "Ruídos", icon: AudioWaveform },
+  {
+    id: "brown",
+    name: "Ruído marrom",
+    category: "Ruídos",
+    icon: AudioWaveform,
+  },
 ];
 
-export const categories: Category[] = ["Chuva", "Natureza", "Aconchego", "Cidade", "Ruídos"];
+export const categories: Category[] = [
+  "Chuva",
+  "Natureza",
+  "Aconchego",
+  "Cidade",
+  "Ruídos",
+];
 
 export interface Experience {
   id: string;
@@ -74,7 +100,7 @@ export const experiences: Experience[] = [
     image: rain,
     mix: [
       { soundId: "rain", volume: 70 },
-      { soundId: "thunder", volume: 45 },
+      { soundId: "thunder", volume: 70 },
       { soundId: "forest", volume: 35 },
     ],
   },
@@ -110,10 +136,20 @@ export const experiences: Experience[] = [
   },
 ];
 
-export const moods = ["Dormir", "Relaxar", "Meditar", "Estudar", "Trabalhar", "Ler", "Concentrar"];
+export const moods = [
+  "Dormir",
+  "Relaxar",
+  "Meditar",
+  "Estudar",
+  "Trabalhar",
+  "Ler",
+  "Concentrar",
+];
 
 export const filterExperiencesByMood = (mood: string | null) =>
-  mood ? experiences.filter((experience) => experience.mood === mood) : experiences;
+  mood
+    ? experiences.filter((experience) => experience.mood === mood)
+    : experiences;
 
 export const soundById = (id: string) => sounds.find((s) => s.id === id)!;
 export const iconFor = (slug: string): LucideIcon =>

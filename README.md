@@ -10,7 +10,7 @@ O **NOCTUA** é uma experiência sonora minimalista, criada para dispositivos m�
 
 ## Experiência sonora
 
-O catálogo oferece **20 camadas**: 15 ambientes gerados por IA, os arquivos de Chuva e Trovões fornecidos pelo usuário e três ruídos matemáticos em estéreo. Os ambientes incluem chuva, floresta, oceano, lareira, cafeteria e trem. As gerações têm aproximadamente 30 segundos; Chuva e Trovões preservam seus originais de aproximadamente 109 e 121 segundos, sem recodificação adicional. Os arquivos MP3 têm perdas, mas os dois arquivos fornecidos foram preservados byte a byte.
+O catálogo oferece **20 camadas**: 15 ambientes gerados por IA, uma gravação real de Trovões e três ruídos matemáticos em estéreo. Todos os ambientes têm cerca de 30 segundos e são entregues em MP3, um formato com perdas. A Chuva usa um trecho da gravação fornecida pelo usuário; Trovões usa [Thunder crack 2B.wav](https://commons.wikimedia.org/wiki/File:Thunder_crack_2B.wav), de Jud McCranie, sob CC BY-SA 4.0, com o derivado distribuído na mesma licença.
 
 O mixer aplica transições suaves, calibragem de energia e folga para combinar camadas. Os arquivos são carregados sob demanda; os ruídos são preparados em Web Worker nos navegadores modernos. O cache de áudio é limitado para reduzir o consumo de memória em celulares e não habilita reprodução offline persistente.
 

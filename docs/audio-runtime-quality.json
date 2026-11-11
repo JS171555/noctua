@@ -4,10 +4,10 @@
   "files": [
     {
       "id": "rain",
-      "processed_seconds": 106.66938775510204,
-      "rms_dbfs": -25.14,
+      "processed_seconds": 28,
+      "rms_dbfs": -26.96,
       "sample_peak_dbfs": -5.19,
-      "max_dc_mean": 5.069639183381963e-10,
+      "max_dc_mean": 7.504701986006006e-10,
       "valid": true
     },
     {
@@ -28,10 +28,10 @@
     },
     {
       "id": "thunder",
-      "processed_seconds": 119.29600907029479,
-      "rms_dbfs": -29.52,
+      "processed_seconds": 28,
+      "rms_dbfs": -25,
       "sample_peak_dbfs": -5.19,
-      "max_dc_mean": 7.68773287832483e-11,
+      "max_dc_mean": 4.2287870666217303e-10,
       "valid": true
     },
     {

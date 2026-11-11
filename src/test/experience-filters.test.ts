@@ -22,6 +22,6 @@ describe("experience mood filters", () => {
     )!;
     expect(
       rainForest.mix.find((item) => item.soundId === "thunder")!.volume,
-    ).toBe(45);
+    ).toBe(70);
   });
 });
