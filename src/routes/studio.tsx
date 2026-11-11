@@ -180,7 +180,7 @@ function Studio() {
                 <button
                   onClick={() => engine.removeSound(id)}
                   aria-label={`Remover ${s.name}`}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -308,7 +308,7 @@ function Studio() {
                   "flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border p-2 text-center transition-all active:scale-95",
                   on
                     ? "border-primary/50 bg-primary/10 text-primary shadow-glow"
-                    : "bg-card/70 text-muted-foreground hover:text-foreground",
+                    : "bg-card/70 text-muted-foreground",
                 )}
               >
                 <s.icon className="h-6 w-6" strokeWidth={1.5} />
@@ -356,7 +356,7 @@ function Studio() {
               <button
                 aria-label={`Apagar ${p.name}`}
                 onClick={() => del.mutate(p.id)}
-                className="text-muted-foreground hover:text-destructive"
+                className="text-muted-foreground"
               >
                 <Trash2 className="h-4 w-4" />
               </button>

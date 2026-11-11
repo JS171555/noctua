@@ -9,7 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { Smartphone } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AppProvider } from "../state/app-store";
@@ -29,7 +29,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           >
             Go home
           </Link>
@@ -57,13 +57,13 @@ function ErrorComponent({ reset }: ErrorComponentProps) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground"
           >
             Go home
           </a>
@@ -146,37 +146,21 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const [desktopRestricted, setDesktopRestricted] = useState(false);
-
-  useEffect(() => {
-    const desktopPointer = window.matchMedia(
-      "(hover: hover) and (pointer: fine)",
-    );
-    const updateRestriction = () =>
-      setDesktopRestricted(desktopPointer.matches);
-
-    updateRestriction();
-    desktopPointer.addEventListener("change", updateRestriction);
-    return () =>
-      desktopPointer.removeEventListener("change", updateRestriction);
-  }, []);
 
   return (
     <>
-      {!desktopRestricted && (
-        <div className="app-interface">
-          <QueryClientProvider client={queryClient}>
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <AuthProvider>
-              <AppProvider>
-                <Outlet />
-                <BottomNav />
-                <Toaster position="top-center" />
-              </AppProvider>
-            </AuthProvider>
-          </QueryClientProvider>
-        </div>
-      )}
+      <div className="app-interface">
+        <QueryClientProvider client={queryClient}>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <AuthProvider>
+            <AppProvider>
+              <Outlet />
+              <BottomNav />
+              <Toaster position="top-center" />
+            </AppProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </div>
       <DesktopAccessNotice />
     </>
   );

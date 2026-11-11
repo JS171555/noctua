@@ -61,7 +61,7 @@ export function BottomNav() {
                   to={to}
                   className={cn(
                     "relative flex flex-col items-center gap-1 py-3 font-ui text-[11px] transition-colors",
-                    active ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                    active ? "text-primary" : "text-muted-foreground",
                   )}
                 >
                   {active && (
@@ -154,7 +154,7 @@ export function ExperienceCard({ exp, size = "md" }: { exp: Experience; size?: "
     <article
       data-reveal
       className={cn(
-        "group relative shrink-0 overflow-hidden rounded-3xl border bg-card shadow-card",
+        "relative shrink-0 overflow-hidden rounded-3xl border bg-card shadow-card",
         size === "lg" ? "aspect-[4/5] w-full" : "aspect-[3/4] w-44",
       )}
     >
@@ -164,7 +164,7 @@ export function ExperienceCard({ exp, size = "md" }: { exp: Experience; size?: "
         loading="lazy"
         width={768}
         height={1024}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="scrim absolute inset-0" />
       <button
@@ -205,7 +205,7 @@ export function Chip({
         "shrink-0 rounded-full border px-4 py-2 font-ui text-sm transition-all",
         active
           ? "border-primary/60 bg-primary/15 text-primary shadow-glow"
-          : "bg-card/60 text-muted-foreground hover:text-foreground",
+          : "bg-card/60 text-muted-foreground",
       )}
     >
       {children}
@@ -248,7 +248,7 @@ export function GlowButton({
     <button
       {...p}
       className={cn(
-        "bg-ember-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-ui text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02] active:scale-95 disabled:opacity-50",
+        "bg-ember-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-ui text-sm font-semibold text-primary-foreground shadow-glow transition-transform active:scale-95 disabled:opacity-50",
         className,
       )}
     >
@@ -266,7 +266,7 @@ export function GhostButton({
     <button
       {...p}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full border bg-card/60 px-5 py-3 font-ui text-sm text-foreground transition-colors hover:bg-surface-2 active:scale-95",
+        "inline-flex items-center justify-center gap-2 rounded-full border bg-card/60 px-5 py-3 font-ui text-sm text-foreground transition-transform active:scale-95",
         className,
       )}
     >
@@ -292,7 +292,7 @@ export function GlowSlider({
       value={value}
       aria-label={label}
       onChange={(e) => onChange(Number(e.target.value))}
-      className="h-6 w-full cursor-pointer accent-[var(--primary)]"
+      className="h-6 w-full accent-[var(--primary)]"
       style={{ accentColor: "var(--primary)" }}
     />
   );

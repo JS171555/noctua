@@ -171,8 +171,6 @@
 }
 @utility animate-firefly { animation: float-up 9s ease-in infinite; }
 
-.desktop-access-notice { display: none; }
-
 /* Keep app copy from being selected accidentally; editable fields remain selectable. */
 .app-interface {
   -webkit-user-select: none;
@@ -184,9 +182,12 @@
   user-select: text;
 }
 
-/* Touch-first devices keep the app; desktop pointers receive the access notice. */
+/* Touch-first devices keep the app; desktop pointers receive the access notice.
+   Both trees are always rendered, so the switch stays CSS-only with no JS detection. */
+.desktop-access-notice { display: none; }
+
 @media (hover: hover) and (pointer: fine) {
-  .app-interface { display: none !important; }
+  .app-interface { display: none; }
   .desktop-access-notice { display: grid; }
 }
 

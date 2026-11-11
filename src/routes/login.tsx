@@ -260,7 +260,7 @@ function Login() {
                     setError(null);
                     setInfo(null);
                   }}
-                  className="mt-4 w-full text-center font-ui text-xs text-muted-foreground hover:text-primary"
+                  className="mt-4 w-full text-center font-ui text-xs text-muted-foreground"
                 >
                   Esqueci minha senha
                 </button>

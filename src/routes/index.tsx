@@ -144,7 +144,7 @@ function Home() {
         <Link
           to="/studio"
           data-reveal
-          className="block rounded-3xl border bg-card p-5 shadow-card transition-colors hover:bg-surface-2"
+          className="block rounded-3xl border bg-card p-5 shadow-card"
         >
           <div className="flex items-center gap-4">
             <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/15 text-primary shadow-glow">

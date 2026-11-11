@@ -67,7 +67,7 @@ function Profile() {
         <li>
           <button
             onClick={toggleTheme}
-            className="flex w-full items-center gap-3 p-4 text-left hover:bg-surface-2"
+            className="flex w-full items-center gap-3 p-4 text-left"
           >
             {theme === "dark" ? (
               <Moon className="h-5 w-5 text-primary" />
@@ -81,7 +81,7 @@ function Profile() {
           </button>
         </li>
         <li>
-          <Link to="/studio" className="flex items-center gap-3 p-4 hover:bg-surface-2">
+          <Link to="/studio" className="flex items-center gap-3 p-4">
             <Timer className="h-5 w-5 text-primary" />
             <span className="flex-1 font-ui text-sm">Temporizador e misturas</span>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -94,7 +94,7 @@ function Profile() {
                 await signOut();
                 toast("Você saiu da conta");
               }}
-              className="flex w-full items-center gap-3 p-4 text-left hover:bg-surface-2"
+              className="flex w-full items-center gap-3 p-4 text-left"
             >
               <LogOut className="h-5 w-5 text-primary" />
               <span className="flex-1 font-ui text-sm">Sair</span>
