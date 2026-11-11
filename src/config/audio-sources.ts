@@ -1,12 +1,12 @@
-/** Original AI-generated environmental effects; mathematical noises use a worker.
+/** User-supplied rain/thunder and generated ambience; noises use a worker.
  * URLs are versioned so old deployments/caches cannot replace the new sound pack.
  * See docs/audio.md for production details and limitations.
  */
 export const audioSources: Partial<Record<string, string>> = {
-  rain: "/audio/v2/rain.mp3?rev=3",
+  rain: "/audio/v2/rain.mp3?rev=4",
   "window-rain": "/audio/v2/window-rain.mp3",
   "roof-rain": "/audio/v2/roof-rain.mp3",
-  thunder: "/audio/v2/thunder.mp3?rev=3",
+  thunder: "/audio/v2/thunder.mp3?rev=4",
   "far-storm": "/audio/v2/far-storm.mp3",
   wind: "/audio/v2/wind.mp3",
   ocean: "/audio/v2/ocean.mp3",

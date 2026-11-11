@@ -1,6 +1,6 @@
 # Áudio do NOCTUA
 
-O catálogo conserva os mesmos 20 identificadores e controles, mas deixa de usar simulações curtas para os ambientes. As 17 camadas ambientais são efeitos sonoros originais gerados por IA, com instruções para naturalidade, intensidade moderada e ausência de música ou narração. Não são gravações de campo e não se anuncia validação auditiva humana.
+O catálogo conserva os mesmos 20 identificadores e controles. Das 17 camadas ambientais, 15 são efeitos gerados por IA; Chuva e Trovões usam os arquivos fornecidos pelo usuário. A procedência original desses dois arquivos não foi inferida. Não se anuncia validação auditiva humana dos efeitos gerados.
 
 ## Biblioteca
 
@@ -12,17 +12,17 @@ O catálogo conserva os mesmos 20 identificadores e controles, mas deixa de usar
 | Cidade             | Cafeteria e trem                                                                                |
 | Ruídos matemáticos | Branco, rosa e marrom                                                                           |
 
-Cada ambiente está em `public/audio/v2/` como MP3 estéreo a 44,1 kHz e 192 kbps, solicitado com 30 segundos. MP3 tem perdas: este formato favorece compatibilidade com Android/iPhone e tamanho de download, sem alegação de áudio lossless. Os ambientes foram concebidos com fontes acústicas distintas, não apenas mudança de volume de uma mesma simulação.
+Os ambientes estão em `public/audio/v2/`. Os 15 efeitos gerados usam MP3 estéreo a 44,1 kHz e 192 kbps, com aproximadamente 30 segundos. Chuva preserva o MP3 estéreo de 44,1 kHz, 256 kbps e aproximadamente 109 segundos enviado pelo usuário. Trovões preserva o MP3 estéreo de 24 kHz, 160 kbps e aproximadamente 121 segundos. MP3 é um formato com perdas; preservar um MP3 existente sem recodificação não transforma o arquivo em áudio lossless.
 
 ### Revisão de Chuva e Trovões
 
-Chuva e Trovões receberam novos originais na revisão `rev=3`. A chuva recebeu filtragem suave dos extremos e controle moderado de transientes. No trovão, foram reduzidos os subgraves e realçados os médios-graves, buscando presença em alto-falantes de celular em vez de depender apenas de frequências muito baixas. O preset “Floresta sob a chuva” inicia Trovões em 45%, antes 25%; os demais volumes permanecem iguais.
+Na revisão `rev=4`, os dois arquivos gerados foram substituídos pelos arquivos enviados pelo usuário, preservados byte a byte. Não foram cortados, equalizados, reamostrados nem recodificados. A tentativa de remoção de metadados com cópia direta dos frames MP3 não economizou bytes; por isso os originais foram mantidos. O preset “Floresta sob a chuva” continua iniciando Trovões em 45%; os demais volumes permanecem iguais.
 
-Essa revisão utiliza URLs com `?rev=3` para invalidar o cache dos dois arquivos sem baixar novamente os outros ambientes. Foram comparados numericamente níveis na faixa de 150–1500 Hz, mas não se afirma teste auditivo em aparelhos reais.
+As URLs usam `?rev=4` para invalidar o cache dos dois arquivos sem alterar os outros ambientes. O SHA-256 dos arquivos publicados foi comparado com o dos anexos originais. Reduzir mais o tamanho por recodificação MP3 acrescentaria perdas e não foi feito. O tratamento de reprodução já existente no mixer permanece aplicado apenas em tempo de execução.
 
 ## Reprodução e loops
 
-Na preparação dos arquivos, o FFmpeg mede a sonoridade em uma primeira passagem e aplica `loudnorm` em uma segunda, com alvos de −23 LUFS, true peak de −4 dB e faixa dinâmica de 7 LU. Isso evita que originais muito baixos cheguem quase inaudíveis ao mixer. São parâmetros de produção; os resultados não são apresentados como certificação de áudio ou de escuta humana.
+Na preparação dos 15 efeitos gerados, o FFmpeg mede a sonoridade em uma primeira passagem e aplica `loudnorm` em uma segunda, com alvos de −23 LUFS, true peak de −4 dB e faixa dinâmica de 7 LU. Chuva e Trovões fornecidos não passaram por essa etapa. São parâmetros de produção, não certificação de áudio ou de escuta humana.
 
 Ao decodificar um ambiente, o carregador remove o componente DC, sobrepõe até dois segundos do final ao início com crossfade de potência constante e ajusta o ganho de ambos os canais em conjunto. O resultado típico de uma fonte de 30 segundos é um loop de aproximadamente 28 segundos, sem uma pausa inserida a cada repetição. O comprimento exato é calculado a partir do PCM decodificado pelo navegador.
 

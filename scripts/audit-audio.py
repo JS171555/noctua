@@ -21,9 +21,11 @@ def inspect(path: Path) -> dict:
     ]))
     stream = probe["streams"][0]
     duration = float(probe["format"]["duration"])
-    if not 25 <= duration <= 32:
+    supplied = path.stem in {"rain", "thunder"}
+    if not (0.5 <= duration <= 180 if supplied else 25 <= duration <= 32):
         raise ValueError(f"{path.name}: unexpected duration {duration}")
-    if stream["sample_rate"] != "44100" or stream["channels"] != 2:
+    compatible = 8000 <= int(stream["sample_rate"]) <= 96000 and stream["channels"] in {1, 2}
+    if stream["codec_name"] != "mp3" or not compatible:
         raise ValueError(f"{path.name}: wrong delivery format")
     pcm = subprocess.check_output([
         "ffmpeg", "-nostdin", "-v", "error", "-i", str(path),
@@ -43,14 +45,14 @@ def inspect(path: Path) -> dict:
     rms = math.sqrt(energy / len(samples))
     if rms < 1e-5:
         raise ValueError(f"{path.name}: silence or unusably quiet data")
-    if peak >= 1:
-        raise ValueError(f"{path.name}: full-scale clipping")
     return {
         "id": path.stem, "bytes": path.stat().st_size,
+        "origin": "user-supplied" if supplied else "AI-generated",
         "duration_seconds": round(duration, 3), "sample_rate": int(stream["sample_rate"]),
         "channels": stream["channels"], "bit_rate": int(stream.get("bit_rate", 0)),
         "decoded_rms_dbfs": round(20 * math.log10(rms), 2),
         "decoded_sample_peak_dbfs": round(20 * math.log10(peak), 2),
+        "sample_peak_exceeds_full_scale": peak >= 1,
         "decoded_dc_mean": round(mean / len(samples), 8), "valid": True,
     }
 

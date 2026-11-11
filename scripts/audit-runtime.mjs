@@ -56,7 +56,7 @@ for (const id of ids) {
       "pcm_f32le",
       "pipe:1",
     ],
-    { maxBuffer: 32 * 1024 * 1024 },
+    { maxBuffer: 128 * 1024 * 1024 },
   );
   const pcm = new Float32Array(raw.buffer, raw.byteOffset, raw.byteLength / 4);
   const channels = [
