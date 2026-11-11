@@ -1,0 +1,142 @@
+{
+  "method": "App prepareChannels applied to FFmpeg-decoded 44.1kHz stereo assets; not browser or human listening certification",
+  "validated_files": 17,
+  "files": [
+    {
+      "id": "rain",
+      "processed_seconds": 28,
+      "rms_dbfs": -30.67,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 2.1145344831117367e-10,
+      "valid": true
+    },
+    {
+      "id": "window-rain",
+      "processed_seconds": 28,
+      "rms_dbfs": -24.63,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 3.8968446637189603e-10,
+      "valid": true
+    },
+    {
+      "id": "roof-rain",
+      "processed_seconds": 28,
+      "rms_dbfs": -28.64,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 1.6104772078132516e-10,
+      "valid": true
+    },
+    {
+      "id": "thunder",
+      "processed_seconds": 28,
+      "rms_dbfs": -22.48,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 4.5778288530468394e-10,
+      "valid": true
+    },
+    {
+      "id": "far-storm",
+      "processed_seconds": 28,
+      "rms_dbfs": -24.64,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 5.688200357496695e-10,
+      "valid": true
+    },
+    {
+      "id": "wind",
+      "processed_seconds": 28,
+      "rms_dbfs": -21.94,
+      "sample_peak_dbfs": -7.88,
+      "max_dc_mean": 3.107142085990579e-10,
+      "valid": true
+    },
+    {
+      "id": "ocean",
+      "processed_seconds": 28,
+      "rms_dbfs": -28.66,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 2.019730165902214e-10,
+      "valid": true
+    },
+    {
+      "id": "forest",
+      "processed_seconds": 28,
+      "rms_dbfs": -33.15,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 4.174075960371965e-11,
+      "valid": true
+    },
+    {
+      "id": "birds",
+      "processed_seconds": 28,
+      "rms_dbfs": -32.7,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 3.423464771422357e-11,
+      "valid": true
+    },
+    {
+      "id": "crickets",
+      "processed_seconds": 28,
+      "rms_dbfs": -21.94,
+      "sample_peak_dbfs": -6.76,
+      "max_dc_mean": 1.3084987673120084e-9,
+      "valid": true
+    },
+    {
+      "id": "stream",
+      "processed_seconds": 28,
+      "rms_dbfs": -27.11,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 3.597670553606902e-10,
+      "valid": true
+    },
+    {
+      "id": "leaves",
+      "processed_seconds": 28,
+      "rms_dbfs": -30.58,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 4.276028775420942e-11,
+      "valid": true
+    },
+    {
+      "id": "tree-wind",
+      "processed_seconds": 28,
+      "rms_dbfs": -24.52,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 3.891667068160463e-10,
+      "valid": true
+    },
+    {
+      "id": "fireplace",
+      "processed_seconds": 28,
+      "rms_dbfs": -24.85,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 6.734957442049138e-10,
+      "valid": true
+    },
+    {
+      "id": "campfire",
+      "processed_seconds": 28,
+      "rms_dbfs": -26.51,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 4.3788484065011024e-10,
+      "valid": true
+    },
+    {
+      "id": "cafe",
+      "processed_seconds": 28,
+      "rms_dbfs": -22.09,
+      "sample_peak_dbfs": -5.19,
+      "max_dc_mean": 9.898513240858331e-10,
+      "valid": true
+    },
+    {
+      "id": "train",
+      "processed_seconds": 28,
+      "rms_dbfs": -21.94,
+      "sample_peak_dbfs": -7,
+      "max_dc_mean": 7.619195640343083e-10,
+      "valid": true
+    }
+  ]
+}

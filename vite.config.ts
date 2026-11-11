@@ -8,7 +8,16 @@ export default defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
     tanstackStart({ server: { entry: "server" } }),
-    nitro(),
+    nitro({
+      routeRules: {
+        "/audio/v2/**": {
+          headers: {
+            "Content-Type": "audio/mpeg",
+            "Cache-Control": "public, max-age=3600",
+          },
+        },
+      },
+    }),
     react(),
     tailwindcss(),
   ],

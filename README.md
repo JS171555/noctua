@@ -8,6 +8,14 @@
 
 O **NOCTUA** é uma experiência sonora minimalista, criada para dispositivos móveis e tablets. Explore sons e combine atmosferas para criar o ambiente ideal para cada momento. Em computadores, a aplicação exibe um aviso e solicita o acesso por celular ou tablet. A experiência pode ser explorada sem conta; os recursos de autenticação, favoritos e salvamento dependem da configuração do Supabase.
 
+## Experiência sonora
+
+O catálogo oferece **20 camadas**: 17 ambientes originais gerados por IA e três ruídos matemáticos em estéreo. Os ambientes incluem chuva, floresta, oceano, lareira, cafeteria e trem, com arquivos individuais de aproximadamente 30 segundos e crossfade na repetição. Não são gravações de campo nem áudio lossless.
+
+O mixer aplica transições suaves, calibragem de energia e folga para combinar camadas. Os arquivos são carregados sob demanda; os ruídos são preparados em Web Worker nos navegadores modernos. O cache de áudio é limitado para reduzir o consumo de memória em celulares e não habilita reprodução offline persistente.
+
+Consulte [a documentação de áudio](docs/audio.md) para formato, tratamento, manutenção e limites da reprodução.
+
 ## Tecnologias
 
 - React 19, TypeScript e TanStack Start
