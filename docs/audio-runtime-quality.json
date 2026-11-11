@@ -5,9 +5,9 @@
     {
       "id": "rain",
       "processed_seconds": 28,
-      "rms_dbfs": -30.67,
+      "rms_dbfs": -30.22,
       "sample_peak_dbfs": -5.19,
-      "max_dc_mean": 2.1145344831117367e-10,
+      "max_dc_mean": 3.066647373443922e-10,
       "valid": true
     },
     {
@@ -29,9 +29,9 @@
     {
       "id": "thunder",
       "processed_seconds": 28,
-      "rms_dbfs": -22.48,
+      "rms_dbfs": -24.59,
       "sample_peak_dbfs": -5.19,
-      "max_dc_mean": 4.5778288530468394e-10,
+      "max_dc_mean": 2.764740790997584e-10,
       "valid": true
     },
     {

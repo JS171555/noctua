@@ -11,9 +11,9 @@
       "sample_rate": 44100,
       "channels": 2,
       "bit_rate": 192000,
-      "decoded_rms_dbfs": -29.42,
-      "decoded_sample_peak_dbfs": -4.1,
-      "decoded_dc_mean": -0.0,
+      "decoded_rms_dbfs": -29.27,
+      "decoded_sample_peak_dbfs": -4.19,
+      "decoded_dc_mean": 5e-8,
       "valid": true
     },
     {
@@ -47,9 +47,9 @@
       "sample_rate": 44100,
       "channels": 2,
       "bit_rate": 192000,
-      "decoded_rms_dbfs": -21.61,
-      "decoded_sample_peak_dbfs": -4.26,
-      "decoded_dc_mean": -1.31e-6,
+      "decoded_rms_dbfs": -24.66,
+      "decoded_sample_peak_dbfs": -5.08,
+      "decoded_dc_mean": -5.3e-7,
       "valid": true
     },
     {

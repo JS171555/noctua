@@ -14,6 +14,12 @@ O catálogo conserva os mesmos 20 identificadores e controles, mas deixa de usar
 
 Cada ambiente está em `public/audio/v2/` como MP3 estéreo a 44,1 kHz e 192 kbps, solicitado com 30 segundos. MP3 tem perdas: este formato favorece compatibilidade com Android/iPhone e tamanho de download, sem alegação de áudio lossless. Os ambientes foram concebidos com fontes acústicas distintas, não apenas mudança de volume de uma mesma simulação.
 
+### Revisão de Chuva e Trovões
+
+Chuva e Trovões receberam novos originais na revisão `rev=3`. A chuva recebeu filtragem suave dos extremos e controle moderado de transientes. No trovão, foram reduzidos os subgraves e realçados os médios-graves, buscando presença em alto-falantes de celular em vez de depender apenas de frequências muito baixas. O preset “Floresta sob a chuva” inicia Trovões em 45%, antes 25%; os demais volumes permanecem iguais.
+
+Essa revisão utiliza URLs com `?rev=3` para invalidar o cache dos dois arquivos sem baixar novamente os outros ambientes. Foram comparados numericamente níveis na faixa de 150–1500 Hz, mas não se afirma teste auditivo em aparelhos reais.
+
 ## Reprodução e loops
 
 Na preparação dos arquivos, o FFmpeg mede a sonoridade em uma primeira passagem e aplica `loudnorm` em uma segunda, com alvos de −23 LUFS, true peak de −4 dB e faixa dinâmica de 7 LU. Isso evita que originais muito baixos cheguem quase inaudíveis ao mixer. São parâmetros de produção; os resultados não são apresentados como certificação de áudio ou de escuta humana.
@@ -32,7 +38,7 @@ Arquivos são carregados sob demanda, com até dois carregamentos simultâneos. 
 
 ## Manutenção
 
-`src/config/audio-sources.ts` associa IDs a URLs versionadas. Preserve os IDs para manter presets e favoritos válidos. Ao substituir uma biblioteca já publicada, altere a versão no caminho para evitar que caches antigos mantenham arquivos de outra edição.
+`src/config/audio-sources.ts` associa IDs a URLs versionadas. Preserve os IDs para manter presets e favoritos válidos. Ao substituir uma biblioteca já publicada, altere a versão no caminho; em revisões pontuais, incremente o parâmetro `rev` para evitar que caches antigos mantenham arquivos de outra edição.
 
 Para preparar um novo original, use `python3 scripts/prepare-audio.py ORIGINAL.mp3 public/audio/v3/ID.mp3`. O script requer FFmpeg/FFprobe, remove metadados, filtra extremos, nivela em duas passagens e codifica a entrega. Essas ferramentas só são necessárias na produção dos assets; não são dependências do deploy Vercel.
 

@@ -15,4 +15,13 @@ describe("experience mood filters", () => {
   it("returns an empty list for moods with no published experiences", () => {
     expect(filterExperiencesByMood("Estudar")).toEqual([]);
   });
+
+  it("keeps thunder present in the rain forest mix", () => {
+    const rainForest = experiences.find(
+      (experience) => experience.id === "rain-forest",
+    )!;
+    expect(
+      rainForest.mix.find((item) => item.soundId === "thunder")!.volume,
+    ).toBe(45);
+  });
 });

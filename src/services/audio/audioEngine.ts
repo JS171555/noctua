@@ -202,6 +202,7 @@ class AudioEngine {
       // state we actually have instead of claiming playback succeeded.
       if (this.ctx !== ctx || !this.wantPlaying) return;
       if (ctx.state === "running") {
+        this.rampMaster(this.snap.master, FADE_IN);
         this.emit(this.channels.size ? "loading" : "playing");
         await Promise.all(
           [...this.channels.keys()].map((id) => this.startChannel(id)),

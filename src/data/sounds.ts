@@ -74,7 +74,7 @@ export const experiences: Experience[] = [
     image: rain,
     mix: [
       { soundId: "rain", volume: 70 },
-      { soundId: "thunder", volume: 25 },
+      { soundId: "thunder", volume: 45 },
       { soundId: "forest", volume: 35 },
     ],
   },

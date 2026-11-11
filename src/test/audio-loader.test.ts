@@ -70,7 +70,7 @@ describe("audio loading", () => {
     const buffer = await a;
     expect(await loader.load("rain")).toBe(buffer);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch.mock.calls[0]![0]).toBe("/audio/v2/rain.mp3");
+    expect(fetch.mock.calls[0]![0]).toBe("/audio/v2/rain.mp3?rev=3");
     expect(createBuffer).toHaveBeenCalledWith(2, 24000, 8000);
     loader.clear();
     await loader.load("rain");

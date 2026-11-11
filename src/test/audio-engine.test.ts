@@ -211,6 +211,7 @@ describe("AudioEngine", () => {
     vi.useRealTimers();
     engine = (await import("@/services/audio/audioEngine")).getAudioEngine();
     await engine.dispose();
+    engine.setMaster(80);
     loaderInstances.length = 0;
     createdContexts.length = 0;
   });
@@ -402,6 +403,7 @@ describe("AudioEngine", () => {
     requestFor(secondLoader, "rain").resolve(makeBuffer());
     await resume;
     expect(secondContext.sources).toHaveLength(1);
+    expect(secondContext.gains[0]!.gain.value).toBeGreaterThan(0);
     expect(engine.getSnapshot().status).toBe("playing");
   });
 
