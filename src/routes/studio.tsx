@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   AlertCircle,
+  Heart,
   Loader2,
   Pause,
   Play,
@@ -26,15 +27,19 @@ import {
 } from "@/components/noctua";
 import { useAudio } from "@/services/audio/use-audio";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 import {
   createPreset,
   errorMessage,
+  favoritesQuery,
   logPlay,
   presetsQuery,
   removePreset,
   soundsQuery,
+  toggleFavorite,
+  type Favorite,
 } from "@/services/supabase/noctua-api";
 import { formatRemaining } from "@/services/audio/sleep-timer";
 import { cn } from "@/lib/utils";
@@ -70,11 +75,35 @@ function Studio() {
   const { engine, state, playing } = useAudio();
   const [cat, setCat] = useState<(typeof categories)[number]>("Chuva");
   const { user } = useAuth();
+  const navigate = useNavigate();
   const qc = useQueryClient();
   const catalog = useQuery(soundsQuery);
   const presetsQ = useQuery({ ...presetsQuery(user?.id ?? "anon"), enabled: !!user });
+  const favoritesQ = useQuery({ ...favoritesQuery(user?.id ?? "anon"), enabled: !!user });
   const presets = presetsQ.data ?? [];
   const refresh = () => qc.invalidateQueries({ queryKey: ["presets", user?.id] });
+  const favoriteMutation = useMutation({
+    mutationFn: (input: {
+      target: { soundId?: string; presetId?: string };
+      existing?: Favorite;
+    }) => toggleFavorite(user!.id, input.target, input.existing),
+    onSuccess: async () => {
+      await qc.invalidateQueries({ queryKey: ["favorites", user?.id] });
+      toast.success("Favoritos atualizados");
+    },
+    onError: (error) => toast.error(errorMessage(error)),
+  });
+  const handleFavorite = (
+    target: { soundId?: string; presetId?: string },
+    existing?: Favorite,
+  ) => {
+    if (!user) {
+      void navigate({ to: "/login" });
+      return;
+    }
+    if (existing) favoriteMutation.mutate({ target, existing });
+    else favoriteMutation.mutate({ target });
+  };
   const del = useMutation({
     mutationFn: removePreset,
     onSuccess: refresh,
@@ -299,21 +328,44 @@ function Studio() {
           .filter((s) => s.category === cat)
           .map((s) => {
             const on = s.id in state.channels;
+            const catalogSound = catalog.data?.find((item) => item.slug === s.id);
+            const favorite = favoritesQ.data?.find((item) => item.sound_id === catalogSound?.id);
             return (
-              <button
-                key={s.id}
-                onClick={() => engine.toggleSound(s.id)}
-                aria-pressed={on}
-                className={cn(
-                  "flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border p-2 text-center transition-all active:scale-95",
-                  on
-                    ? "border-primary/50 bg-primary/10 text-primary shadow-glow"
-                    : "bg-card/70 text-muted-foreground",
-                )}
-              >
-                <s.icon className="h-6 w-6" strokeWidth={1.5} />
-                <span className="font-ui text-[11px] leading-tight">{s.name}</span>
-              </button>
+              <div key={s.id} className="relative">
+                <button
+                  onClick={() => engine.toggleSound(s.id)}
+                  aria-pressed={on}
+                  className={cn(
+                    "flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-2xl border p-2 pt-8 text-center transition-all active:scale-95",
+                    on
+                      ? "border-primary/50 bg-primary/10 text-primary shadow-glow"
+                      : "bg-card/70 text-muted-foreground",
+                  )}
+                >
+                  <s.icon className="h-6 w-6" strokeWidth={1.5} />
+                  <span className="font-ui text-[11px] leading-tight">{s.name}</span>
+                </button>
+                <button
+                  type="button"
+                  aria-label={
+                    favorite ? `Remover ${s.name} dos favoritos` : `Adicionar ${s.name} aos favoritos`
+                  }
+                  aria-pressed={!!favorite}
+                  disabled={
+                    favoriteMutation.isPending || (!!user && favoritesQ.isLoading) || !catalogSound
+                  }
+                  onClick={() => {
+                    if (!catalogSound) return;
+                    handleFavorite({ soundId: catalogSound.id }, favorite);
+                  }}
+                  className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-background/70 text-muted-foreground transition-colors hover:text-primary disabled:opacity-50"
+                >
+                  <Heart
+                    className={cn("h-4 w-4", favorite && "fill-primary text-primary")}
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
             );
           })}
       </div>
@@ -334,8 +386,10 @@ function Studio() {
         <p className="font-ui text-sm text-muted-foreground">Suas misturas salvas aparecem aqui.</p>
       ) : (
         <ul className="space-y-2">
-          {presets.map((p) => (
-            <li key={p.id} className="flex items-center gap-3 rounded-2xl border bg-card/70 p-3">
+          {presets.map((p) => {
+            const favorite = favoritesQ.data?.find((item) => item.preset_id === p.id);
+            return (
+              <li key={p.id} className="flex items-center gap-3 rounded-2xl border bg-card/70 p-3">
               <button
                 className="flex flex-1 items-center gap-3 text-left"
                 onClick={() => {
@@ -354,14 +408,32 @@ function Studio() {
                 </span>
               </button>
               <button
+                type="button"
+                aria-label={
+                  favorite
+                    ? `Remover ${p.name} dos favoritos`
+                    : `Adicionar ${p.name} aos favoritos`
+                }
+                aria-pressed={!!favorite}
+                disabled={favoriteMutation.isPending || favoritesQ.isLoading}
+                onClick={() => handleFavorite({ presetId: p.id }, favorite)}
+                className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:text-primary disabled:opacity-50"
+              >
+                <Heart
+                  className={cn("h-4 w-4", favorite && "fill-primary text-primary")}
+                  aria-hidden="true"
+                />
+              </button>
+              <button
                 aria-label={`Apagar ${p.name}`}
                 onClick={() => del.mutate(p.id)}
                 className="text-muted-foreground"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       )}
     </Page>
